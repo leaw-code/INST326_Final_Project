@@ -1,15 +1,11 @@
 {
     "player": {
         "name": "Hero",
-        "hp": 85,
-        "inventory": [
-            "Health Potion",
-            "Iron Sword"
-        ]
+        "hp": 85
     },
     "room": "dungeon_hall",
-    "inventory": [
-        "Health Potion",
-        "Iron Sword"
-    ]
+    "inventory": {
+        "Health Potion": 1,
+        "Iron Sword": 1
+    }
 }

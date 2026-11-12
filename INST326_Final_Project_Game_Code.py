@@ -8,7 +8,7 @@ class GameEngine:
     
     def __init__(self, name, world_data):
         """
-        Initializes player status, current room, and empty inventory.
+        Initializes world_data, player, prev_rooms, room, event, and inventory.
         
         Team Member: Lea Williams, Dagem Worku
         """
@@ -20,7 +20,7 @@ class GameEngine:
                        }
         self.prev_rooms = {}
         self.room = "Room 1"
-        self.event = {"None"}
+        self.event = "None"
         self.inventory = {}
     
     # Constantinos Marmaras
@@ -130,7 +130,7 @@ class GameEngine:
         
         self.prev_rooms.update({self.room:self.event})
         self.room = self.world_data[0][self.room][direction]
-        self.event = {"None"}
+        self.event = "None"
         
         if self.world_data[0][self.room] == "End":
             print("""
@@ -155,36 +155,10 @@ class GameEngine:
             else:
                 self.event = bad_events[random.randint(0, len(bad_events)-1)]
                             
-        print(f"Continuing to {self.room}...")
-            
+        print(f"Continuing to {self.room} with [{self.event}] event...")
 
-# Game Data (paths, rooms, events)
-dungeon_paths = {"Room 1": {"Left": "Room 2", "Forward": "Room 3"},
-                 "Room 2": {"Right": "Room 4"},
-                 "Room 3": {"Left": "Room 5"},
-                 "Room 4": "End",
-                 "Room 5": "End"
-                 }
-
-dungeon_rooms = {"Room 2":{"Enemies": "Zombie",
-                           "Items" : {"Leather boots": 1}
-                           },
-                 "Room 3":{"Enemies": "Haunted Knight",
-                           "Items" : {"Katana": 1}
-                           },
-                 "Room 4":{"Enemies": "Bandit",
-                           "Items" : {"Gold": 10}
-                           },                 
-                 "Room 5":{"Enemies": "Skeleton",
-                           "Items" : {"Health Potion": 1}
-                           },                 
-                }
-
-events = {"Bad events": ["- Weak Strikes", "- Tanky Enemies"],
-          "Good events": ["+ Strong Strikes", "+ Health Boost"]}
-    
-    #Preston Baldwin
-        #Parts of this method may change depending on later implementation of enemy_type
+    # Preston Baldwin
+        # Parts of this method may change depending on later implementation of enemy_type
     def combat(self, enemy_type: list[str] | str, enemy_count: int = 1) -> dict[str, float | str]:
         """
         Starts a turn based battle between the player and enemies.
@@ -247,10 +221,33 @@ events = {"Bad events": ["- Weak Strikes", "- Tanky Enemies"],
 
             self.add_item_to_inventory(item)
 
-            return {"xp": xp, "item": item, "result": "Victory"}            
+            return {"xp": xp, "item": item, "result": "Victory"}                        
 
+# Game Data (paths, rooms, events)
+dungeon_paths = {"Room 1": {"Left": "Room 2", "Forward": "Room 3"},
+                 "Room 2": {"Right": "Room 4"},
+                 "Room 3": {"Left": "Room 5"},
+                 "Room 4": "End",
+                 "Room 5": "End"
+                 }
 
+dungeon_rooms = {"Room 2":{"Enemies": "Zombie",
+                           "Items" : {"Leather boots": 1}
+                           },
+                 "Room 3":{"Enemies": "Haunted Knight",
+                           "Items" : {"Katana": 1}
+                           },
+                 "Room 4":{"Enemies": "Bandit",
+                           "Items" : {"Gold": 10}
+                           },                 
+                 "Room 5":{"Enemies": "Skeleton",
+                           "Items" : {"Health Potion": 1}
+                           },                 
+                }
 
+events = {"Bad events": ["- Weak Strikes", "- Tanky Enemies"],
+          "Good events": ["+ Strong Strikes", "+ Health Boost"]}
+    
 if __name__ == "__main__":
     # Fake player name input
     engine = GameEngine("Hero", (dungeon_paths, dungeon_rooms, events))

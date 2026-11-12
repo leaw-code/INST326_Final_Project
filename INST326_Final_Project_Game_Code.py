@@ -119,8 +119,8 @@ class GameEngine:
             If game has not ended, the event for the next room is calculated and
             set to the event attribute.
         """
-        good_events = self.world_data[2]["Good events"]
-        bad_events = self.world_data[2]["Bad events"]
+        good_events = self.world_data[1]["Good events"]
+        bad_events = self.world_data[1]["Bad events"]
         
         try:
             self.world_data[0][self.room][direction]
@@ -191,7 +191,7 @@ class GameEngine:
             })
 
         # Continue fighting while the player and enemies are alive
-        while self.player_data["hp"] > 0 and len(enemies) > 0:
+        while self.player["HP"] > 0 and len(enemies) > 0:
 
             # Player attacks the first remaining enemy
             damage = random.randint(10, 20)
@@ -207,11 +207,11 @@ class GameEngine:
             # If enemies remain, they attack the player
             if len(enemies) > 0:
                 enemy_damage = random.randint(5, 15)
-                self.player_data["hp"] -= enemy_damage
+                self.player["HP"] -= enemy_damage
                 print(f"You took {enemy_damage} damage!")
 
         # Determine the battle outcome
-        if self.player_data["hp"] <= 0:
+        if self.player["HP"] <= 0:
             return {"xp": 0.0, "item": "None", "result": "Defeat"}
 
         else:
@@ -231,26 +231,12 @@ dungeon_paths = {"Room 1": {"Left": "Room 2", "Forward": "Room 3"},
                  "Room 5": "End"
                  }
 
-dungeon_rooms = {"Room 2":{"Enemies": "Zombie",
-                           "Items" : {"Leather boots": 1}
-                           },
-                 "Room 3":{"Enemies": "Haunted Knight",
-                           "Items" : {"Katana": 1}
-                           },
-                 "Room 4":{"Enemies": "Bandit",
-                           "Items" : {"Gold": 10}
-                           },                 
-                 "Room 5":{"Enemies": "Skeleton",
-                           "Items" : {"Health Potion": 1}
-                           },                 
-                }
-
 events = {"Bad events": ["- Weak Strikes", "- Tanky Enemies"],
           "Good events": ["+ Strong Strikes", "+ Health Boost"]}
     
 if __name__ == "__main__":
     # Fake player name input
-    engine = GameEngine("Hero", (dungeon_paths, dungeon_rooms, events))
+    engine = GameEngine("Hero", (dungeon_paths, events))
     
     # Fake player direction decisions
     engine.navigate_room("Left")

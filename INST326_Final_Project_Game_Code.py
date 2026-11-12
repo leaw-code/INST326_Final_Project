@@ -84,7 +84,72 @@ class GameEngine:
                     return True
                 except Exception:
                     return False
-            
+    
+    #Preston Baldwin
+        #Parts of this method may change depending on later implementation of enemy_type
+    def combat(self, enemy_type: list[str] | str, enemy_count: int = 1) -> dict[str, float | str]:
+        """
+        Starts a turn based battle between the player and enemies.
+
+        Problem Solved:
+            Handles combat by allowing the player and enemies to attack,
+            updating health, and determining rewards after battle.
+
+        Args:
+            enemy_type (list[str] | str): Name or category of enemies.
+            enemy_count (int): Number of enemies in the battle.
+
+        Returns:
+            dict: Combat results including XP and item rewards.
+
+        Side Effects:
+            Updates player health and awards items to inventory.
+        """
+
+        # Makes sure enemy_type is a list
+        if isinstance(enemy_type, str):
+            enemy_type = [enemy_type]
+
+        # Create enemies with 30 health each
+        enemies = []
+        for i in range(enemy_count):
+            enemies.append({
+                "type": enemy_type[i % len(enemy_type)],
+                "hp": 30
+            })
+
+        # Continue fighting while the player and enemies are alive
+        while self.player_data["hp"] > 0 and len(enemies) > 0:
+
+            # Player attacks the first remaining enemy
+            damage = random.randint(10, 20)
+            enemies[0]["hp"] -= damage
+
+            print(f"You dealt {damage} damage!")
+
+            # Check if the enemy was defeated
+            if enemies[0]["hp"] <= 0:
+                defeated_enemy = enemies.pop(0)
+                print(f"{defeated_enemy['type']} was defeated!")
+
+            # If enemies remain, they attack the player
+            if len(enemies) > 0:
+                enemy_damage = random.randint(5, 15)
+                self.player_data["hp"] -= enemy_damage
+                print(f"You took {enemy_damage} damage!")
+
+        # Determine the battle outcome
+        if self.player_data["hp"] <= 0:
+            return {"xp": 0.0, "item": "None", "result": "Defeat"}
+
+        else:
+            # Award rewards for winning
+            xp = float(enemy_count * 10)
+            item = "Health Potion"
+
+            self.add_item_to_inventory(item)
+
+            return {"xp": xp, "item": item, "result": "Victory"}            
 
 
 

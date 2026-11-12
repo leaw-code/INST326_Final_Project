@@ -48,4 +48,29 @@ def save_game(self, file_path, player_data, current_room):
         for item in inventory_list:
             # rooms_visited.append(current_room)
             
-        
+# Constantinos Marmaras
+
+def add_item_to_inventory(self, item) -> None:
+    """
+    Adds a targeted item to the player’s inventory subject to carrying limits.
+
+    Problem Solved:
+	    Manages items acquired by checking current inventory quantities, 
+        enforcing a maximum stack limit of 5 per item type, 
+        and updating item count dictionaries
+
+    Args:
+	    item (str): string of the name to be added
+
+    Side effects:
+        Modifies the player’s inventory dictionary attribute to reflect 
+        updated item counts
+    """
+    
+    for items in self.inventory:
+        if items == item:
+            if self.inventory.get(item) <= 5:
+                self.inventory.get(item) + 1
+    
+    if item not in self.inventory:
+        self.inventory[item] = 1

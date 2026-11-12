@@ -1,4 +1,3 @@
-#Lea Williams
 
 import json
 
@@ -7,7 +6,15 @@ class GameEngine:
     Main game engine managing player state, rooms, and save files.
     """
     
-     
+    def __init__(self):
+        """
+        Initializes player status, current room, and empty inventory.
+        
+        Team Member: Lea Williams
+        """
+        self.player_data = {"name": "Hero", "hp": 100}
+        self.current_room = "entrance"
+        self.inventory = {}
     
 # Constantinos Marmaras
 
@@ -36,6 +43,7 @@ class GameEngine:
         if item not in self.inventory:
             self.inventory[item] = 1
 
+#Lea Williams
 
     def save_game(self, file_path):
                 """

@@ -233,23 +233,25 @@ class GameEngine:
 
             return {"xp": xp, "item": item, "result": "Victory"}                        
 
-# Game Data (paths, rooms, events)
-dungeon_paths = {"Room 1": {"Left": "Room 2", "Forward": "Room 3"},
-                 "Room 2": {"Right": "Room 4"},
-                 "Room 3": {"Left": "Room 5"},
-                 "Room 4": "End",
-                 "Room 5": "End"
-                 }
 
-events = {"Bad events": ["- Weak Strikes", "- Tanky Enemies"],
-          "Good events": ["+ Strong Strikes", "+ Health Boost"]}
-    
 if __name__ == "__main__":
+
+    # Game Data (paths, rooms, events)
+    dungeon_paths = {"Room 1": {"Left": "Room 2", "Forward": "Room 3"},
+                    "Room 2": {"Right": "Room 4"},
+                    "Room 3": {"Left": "Room 5"},
+                    "Room 4": "End",
+                    "Room 5": "End"
+                    }
+
+    events = {"Bad events": ["- Weak Strikes", "- Tanky Enemies"],
+            "Good events": ["+ Strong Strikes", "+ Health Boost"]}
+        
     # Fake player name input
     engine = GameEngine("Hero", (dungeon_paths, events))
     
     # Fake player direction decisions
-    engine.navigate_room("Left")
+    # engine.navigate_room("Left")
     engine.navigate_room("Right")
 
     if engine.save_game("test_save.json"):

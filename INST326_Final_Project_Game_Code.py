@@ -22,6 +22,7 @@ class GameEngine:
         self.room = "Room 1"
         self.event = "None"
         self.inventory = {}
+        self.inv_capacity = 4
     
     # Constantinos Marmaras
 
@@ -42,13 +43,21 @@ class GameEngine:
             updated item counts
         """
         
-        for items in self.inventory:
-            if items == item:
-                if self.inventory.get(item) <= 5:
-                    self.inventory.get(item) + 1
+        if len(self.inventory) < self.inv_capacity:
+            for items in self.inventory:
+                if items == item:
+                    if self.inventory.get(item) <= 5:
+                        self.inventory.get(item) += 1
         
-        if item not in self.inventory:
-            self.inventory[item] = 1
+            if item not in self.inventory:
+                self.inventory[item] = 1
+        else:
+            print(
+                f"Inventory capacity of {self.inv_capacity} has been reached. "
+                "If you wish to pick up this item, please drop something from "
+                "your inventory."
+                )
+            
 
     # Lea Williams
 

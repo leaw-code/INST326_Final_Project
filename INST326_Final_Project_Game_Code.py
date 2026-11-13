@@ -24,10 +24,11 @@ class GameEngine:
         self.inventory = {}
         self.inv_capacity = 4
     
-    # Constantinos Marmaras
 
     def add_item_to_inventory(self, item) -> None:
         """
+        Writer: Constnatinos Marmaras
+        
         Adds a targeted item to the player’s inventory subject to carrying limits.
 
         Problem Solved:
@@ -43,20 +44,20 @@ class GameEngine:
             updated item counts
         """
         
-        if len(self.inventory) < self.inv_capacity:
-            for items in self.inventory:
-                if items == item:
-                    if self.inventory.get(item) <= 5:
-                        self.inventory.get(item) += 1
+        for items in self.inventory:
+            if items == item:
+                if self.inventory.get(item) <= 5:
+                    self.inventory[item] += 1
         
-            if item not in self.inventory:
+        if item not in self.inventory:
+            if len(self.inventory) < self.inv_capacity:
                 self.inventory[item] = 1
-        else:
-            print(
-                f"Inventory capacity of {self.inv_capacity} has been reached. "
-                "If you wish to pick up this item, please drop something from "
-                "your inventory."
-                )
+            else:
+                print(
+                    f"Inventory capacity of {self.inv_capacity} has been reached. "
+                    "If you wish to pick up this item, please drop something "
+                    "from your inventory."
+                    )
             
 
     # Lea Williams

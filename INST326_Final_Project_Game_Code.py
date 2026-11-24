@@ -59,6 +59,31 @@ class GameEngine:
                     "from your inventory."
                     )
             
+    def drop_item(self, item_to_drop, drop_all = False):
+        if drop_all is True:
+            self.inventory.clear()
+            return f"Your inventory is now empty!"
+        else:
+            try:
+                self.inventory[item_to_drop] -= 1
+                if(self.inventory[item_to_drop] <= 0):
+                    self.inventory.pop(item_to_drop)
+                    return (
+                        f"That was the last {item_to_drop} you had. You have "
+                        f"no more {item_to_drop} in your inventory"
+                    )
+                else:
+                    return (
+                        f"Succesfully dropped 1 {item_to_drop} from your "
+                        f"inventory. Current {item_to_drop} in inventory is now "
+                        f"{self.inventory[item_to_drop]}"
+                    )
+            except KeyError:
+                return (
+                    f"{item_to_drop} is not something that you have in your "
+                    f"inventory. Therefore, you cannot drop it."
+                )
+                                  
 
     # Lea Williams
 

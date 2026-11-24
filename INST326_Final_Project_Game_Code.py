@@ -60,6 +60,22 @@ class GameEngine:
                     )
             
     def drop_item(self, item_to_drop, drop_all = False):
+        """Drops an item of users choice from the inventory. Choice to drop
+        everything in the users inventory
+
+        Args:
+            item_to_drop (str): Name of the item to be dropped
+            drop_all (bool, optional): boolean for if everything in a users
+            inventory will be dropped. Defaults to False.
+        
+        Side effects:
+            Removes either one thing from the users inventory or removes
+            everything from the users inventory
+            
+        Returns:
+            str: Returns different strings based on what happens to the users
+            inventory
+        """
         if drop_all is True:
             self.inventory.clear()
             return f"Your inventory is now empty!"
